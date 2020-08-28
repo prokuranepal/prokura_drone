@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to prokura-mav’s documentation! &#8212; prokura-mav v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-drone">
+<span id="welcome-to-prokura-mav-s-documentation"></span><h1>Welcome to prokura-mav’s documentation!<a class="headerlink" href="#module-drone" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="drone-py">
+<h2>drone.py<a class="headerlink" href="#drone-py" title="Permalink to this headline">¶</a></h2>
+<p>The core module of my drone mav project</p>
+<dl class="py class">
+<dt id="drone.Drone">
+<em class="property">class </em><code class="sig-prename descclassname">drone.</code><code class="sig-name descname">Drone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="drone.Drone.airspeed">
+<em class="property">property </em><code class="sig-name descname">airspeed</code><a class="headerlink" href="#drone.Drone.airspeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Airspeed of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Air speed of the drone (m/s)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.arm">
+<code class="sig-name descname">arm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.arm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone arm</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.arm_and_takeoff">
+<code class="sig-name descname">arm_and_takeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">auto_mode</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.arm_and_takeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone arm and takeoff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>altitude</strong> (<em>integer</em>) – altitude in meters(m)</p></li>
+<li><p><strong>auto_mode</strong> (<em>bool</em><em>, </em><em>optional</em>) – continue auto mission after takeoff. Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.attitude">
+<em class="property">property </em><code class="sig-name descname">attitude</code><a class="headerlink" href="#drone.Drone.attitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attitude status of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Attitude.roll = roll, Attitude.pitch = pitch, Attitude.yaw = yaw of the drone</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Attitude</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.battery">
+<em class="property">property </em><code class="sig-name descname">battery</code><a class="headerlink" href="#drone.Drone.battery" title="Permalink to this definition">¶</a></dt>
+<dd><p>Battery status of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Battery.voltage = voltage, Battery.current = current , Battery.level = charge percentage</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Battery</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.disarm">
+<code class="sig-name descname">disarm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.disarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone disarm</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.ekf_ok">
+<em class="property">property </em><code class="sig-name descname">ekf_ok</code><a class="headerlink" href="#drone.Drone.ekf_ok" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone EKF Status</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>EKF ok if True, EKF not ok if False</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.flight_mode">
+<em class="property">property </em><code class="sig-name descname">flight_mode</code><a class="headerlink" href="#drone.Drone.flight_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flight mode status of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>‘GUIDED’ if in guided mode, ‘RTL’ if in rtl mode and so on</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.flight_plan">
+<em class="property">property </em><code class="sig-name descname">flight_plan</code><a class="headerlink" href="#drone.Drone.flight_plan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone waypoints in which it will fly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary with all the waypoint that drone will fly</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.gps_0">
+<em class="property">property </em><code class="sig-name descname">gps_0</code><a class="headerlink" href="#drone.Drone.gps_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>GPS status of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>GPSInfo.eph = eph of drone, GPSInfo.epv = epv of drone, GPSInfo.fix_type = fix type, GPSInfo.satellites_visible = number of satellites visible</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>GPSInfo</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.groundspeed">
+<em class="property">property </em><code class="sig-name descname">groundspeed</code><a class="headerlink" href="#drone.Drone.groundspeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ground speed of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Ground speed of the drone (m/s)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.heading">
+<em class="property">property </em><code class="sig-name descname">heading</code><a class="headerlink" href="#drone.Drone.heading" title="Permalink to this definition">¶</a></dt>
+<dd><p>Heading of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True heading of the drone</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.is_armable">
+<em class="property">property </em><code class="sig-name descname">is_armable</code><a class="headerlink" href="#drone.Drone.is_armable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone condition that whether it is safe to arm or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>safe to arm if True , not safe to arm if False</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.is_armed">
+<em class="property">property </em><code class="sig-name descname">is_armed</code><a class="headerlink" href="#drone.Drone.is_armed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arming status of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if armed, False if disarmed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.location">
+<em class="property">property </em><code class="sig-name descname">location</code><a class="headerlink" href="#drone.Drone.location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Current Location of the drone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Location.lat = latitude</dt><dd><p>Location.lon = longitude
+Location.alt = altitude
+Location.altR = relative altitude
+Location.north = north in NEU frame
+Location.east = east in NEU frame
+Location.down = down in NEU frame</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Location</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.mission_read">
+<code class="sig-name descname">mission_read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="o">=</span><span class="default_value">'mission/mission_read.txt'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.mission_read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone current mission read</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em><em>, </em><em>optional</em>) – File name to store mission into. Defaults to ‘mission_read.txt’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.mission_upload">
+<code class="sig-name descname">mission_upload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="o">=</span><span class="default_value">'mission/mission.txt'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.mission_upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone mission upload from available mission text file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em><em>, </em><em>optional</em>) – File name to upload mission from. Defaults to ‘mission.txt’.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – Mission file type not supported</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.set_flight_mode">
+<code class="sig-name descname">set_flight_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.set_flight_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set drone flight mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mode</strong> (<em>string</em>) – flight mode name such as ‘GUIDED’,’LOITER’,’RTL’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.set_home">
+<code class="sig-name descname">set_home</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">home_location</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.set_home" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone set home
+:param home_location: If location given, sets that location as home. If not given sets boot position as home. Defaults to None.
+:type home_location: Location, optional</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.simple_goto">
+<code class="sig-name descname">simple_goto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">location</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.Drone.simple_goto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone goto a waypoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location</strong> (<em>Location</em>) – Location class with lat,lon and alt</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.system_status">
+<em class="property">property </em><code class="sig-name descname">system_status</code><a class="headerlink" href="#drone.Drone.system_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drone system status</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The current status of drone. ‘BOOT’ means drone is booting, ‘STANDBY’ means drone is in standby mode.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="drone.Drone.velocity">
+<em class="property">property </em><code class="sig-name descname">velocity</code><a class="headerlink" href="#drone.Drone.velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Velocity of the drone in x,y,z frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Velocity.vx = velocity in N direction, Velocity.vy = velocity in E direction, Velocity.vz = velocity in U direction</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Velocity</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="drone.MavlinkMessage">
+<em class="property">class </em><code class="sig-prename descclassname">drone.</code><code class="sig-name descname">MavlinkMessage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drone.MavlinkMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate mavlink messages.</p>
+</dd></dl>
+
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">prokura-mav</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Shovan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

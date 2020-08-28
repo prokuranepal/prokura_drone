@@ -1,3 +1,9 @@
+"""
+drone.py
+====================================
+The core module of my drone mav project
+"""
+
 # Import mavutil
 from pymavlink import mavutil
 from pymavlink import mavwp
@@ -9,11 +15,19 @@ import time
 import threading
 
 class MavlinkMessage:
+    """Generate mavlink messages."""
+
+
     def __init__(self,master):
+        """Initialize
+
+        Args:
+            master (object): master player
+        """
 
         #master connection
         self.master = master
-        
+
         ## The data coming from mavlink (not all the data are present)
         #'GLOBAL_POSITION_INT'
         self._lat = None
