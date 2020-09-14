@@ -10,6 +10,7 @@ from pymavlink import mavwp
 from pymavlink.dialects.v10 import ardupilotmega
 
 import time
+from pathlib import Path
 
 #Import threading for reading mavlink messages
 import threading
@@ -329,13 +330,16 @@ class Drone(MavlinkMessage):
                         home_location.lon, # lon
                         home_location.alt)  # alt
 
-    def mission_read(self, file_name = 'mission/mission_read.txt'):    
+    def mission_read(self, file_name = 'mission_read.txt'):    
         """Drone current mission read
 
         Args:
             file_name (str, optional): File name to store mission into. Defaults to 'mission_read.txt'.
 
         """                
+        # path to mission file
+        path = str(Path(__file__).parent.absolute())+'/mission/'+file_name
+
         #ask for mission count
         self.master.waypoint_request_list_send()
 
@@ -378,11 +382,11 @@ class Drone(MavlinkMessage):
             
 
         #write to file
-        with open(file_name,'w') as file_:
+        with open(path,'w') as file_:
             print("Write mission to file")
             file_.write(output)
 
-    def new_mission_upload(self,mission_waypoints):
+    def new_mission_upload(self,mission_waypoints,file_name='new.txt'):
 
         mavlink_command = {
                     'waypoint':16,
@@ -404,14 +408,16 @@ class Drone(MavlinkMessage):
             output += commandline
             seq += 1
 
-        with open('mission/new.txt','w') as file_:
+        path = str(Path(__file__).parent.absolute())+'/mission/'+file_name
+
+        with open(path,'w') as file_:
             print("Write mission to file")
             file_.write(output)
 
-        self.mission_upload(file_name = 'mission/new.txt')
+        self.mission_upload(file_name = path)
 
      
-    def mission_upload(self, file_name = 'mission/asasas.txt'):   
+    def mission_upload(self, file_name = 'mission.txt'):   
         """Drone mission upload from available mission text file
 
         Args:
@@ -420,6 +426,8 @@ class Drone(MavlinkMessage):
         Raises:
             Exception: Mission file type not supported
         """        
+        path = str(Path(__file__).parent.absolute())+'/mission/'+file_name
+
         #clear waypoints before uploading, so that new waypoints can be added
         self._waypoints.clear()
         mission_count = 0
