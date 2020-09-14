@@ -5,7 +5,46 @@ drone = Drone('tcp:127.0.0.1:5762')
 
 time.sleep(1)
 
-drone.mission_upload()
+mission = {
+  'name': 'asasas',
+  'radius': '20',
+  'speed': '20',
+  'home': 'Biratanagr',
+  'destination': '5f2bb9d7e0d78272f38eb279',
+  'waypoints': [
+    {
+      'altitude': 0,
+      'radius': 0,
+      'action': 'waypoint',
+      'lat': -35.3628540039,
+      'lng': 149.163864136
+    },
+    {
+      'altitude': '20',
+      'radius': '20',
+      'action': 'takeoff',
+      'lat': -35.3628540039,
+      'lng': 149.163864136
+    },
+    {
+      'altitude': '20',
+      'radius': '20',
+      'action': 'waypoint',
+      'lat': -35.3616333008,
+      'lng': 149.163070679
+    },
+    {
+      'altitude': 10,
+      'radius': 0,
+      'action': 'land',
+      'lat': -35.360584259,
+      'lng': 149.163391113
+    }
+  ]
+}
+mission_waypoints = mission['waypoints']
+
+drone.new_mission_upload(mission_waypoints)
 
 flight_plan = drone.flight_plan
 print(flight_plan)
