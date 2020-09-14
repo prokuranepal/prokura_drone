@@ -367,9 +367,37 @@ class Drone(MavlinkMessage):
         with open(file_name,'w') as file_:
             print("Write mission to file")
             file_.write(output)
+
+    def new_mission_upload(self,mission_waypoints):
+
+        mavlink_command = {
+                    'waypoint':16,
+                    'land':21,
+                    'takeoff':22,
+                    'rtl':20
+                }
         
+        seq = 0
+        frame = 3
+        output = 'QGC WPL 110\n'
+        for i in range(len(mission_waypoints)):
+            param1 = mission_waypoints[i]['radius']
+            command = mavlink_command[mission_waypoints[i]['action']]
+            x = mission_waypoints[i]['lat']
+            y = mission_waypoints[i]['lng']
+            z = mission_waypoints[i]['altitude']
+            commandline="%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (seq,0,frame,command,param1,0,0,0,x,y,z,1)
+            output += commandline
+            seq += 1
+
+        with open('mission/new.txt','w') as file_:
+            print("Write mission to file")
+            file_.write(output)
+
+        self.mission_upload(file_name = 'mission/new.txt')
+
      
-    def mission_upload(self, file_name = 'mission/mission.txt'):   
+    def mission_upload(self, file_name = 'mission/asasas.txt'):   
         """Drone mission upload from available mission text file
 
         Args:
