@@ -233,7 +233,8 @@ class Drone(MavlinkMessage):
         self.master = mavutil.mavlink_connection(port)
 
         # store waypoints from the command
-        self._waypoints = {}
+        self.__wp = {}   #dictionary
+        self._waypoints = [] #contain full mission in array
         self._home = None
 
         #wait_heartbeat can be called before MavlinkMessage class initialization
@@ -365,19 +366,21 @@ class Drone(MavlinkMessage):
             #store the waypoints in waypoint dictionary
             if (msg.command != 22):
                 if(msg.seq != 0):   #i.e not home location
-                    self._waypoints[mission_count] = {
+                    self.__wp[mission_count] = {
                         'lat':msg.x,
                         'lng':msg.y,
                         'alt':msg.z,
                         'command':msg.command
                     }
+                    self._waypoints.append(self.__wp[mission_count])
                 else:               #i.e home location
                     self._home.lat = msg.x
                     self._home.lon = msg.y
-                    self._waypoints[mission_count] = {
+                    self.__wp[mission_count] = {
                         'lat':self._home.lat,
                         'lng':self._home.lon
                     }
+                    self._waypoints.append(self.__wp[mission_count])
                 mission_count += 1
             
 
@@ -387,7 +390,6 @@ class Drone(MavlinkMessage):
             file_.write(output)
 
     def new_mission_upload(self,mission_waypoints,file_name='new.txt'):
-
         mavlink_command = {
                     'waypoint':16,
                     'land':21,
@@ -398,6 +400,7 @@ class Drone(MavlinkMessage):
         seq = 0
         frame = 3
         output = 'QGC WPL 110\n'
+
         for i in range(len(mission_waypoints)):
             param1 = mission_waypoints[i]['radius']
             command = mavlink_command[mission_waypoints[i]['action']]
@@ -407,13 +410,11 @@ class Drone(MavlinkMessage):
             commandline="%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (seq,0,frame,command,param1,0,0,0,x,y,z,1)
             output += commandline
             seq += 1
-
         path = str(Path(__file__).parent.absolute())+'/mission/'+file_name
 
         with open(path,'w') as file_:
             print("Write mission to file")
             file_.write(output)
-
         self.mission_upload(file_name = path)
 
      
@@ -429,7 +430,7 @@ class Drone(MavlinkMessage):
         path = str(Path(__file__).parent.absolute())+'/mission/'+file_name
 
         #clear waypoints before uploading, so that new waypoints can be added
-        self._waypoints.clear()
+        self._waypoints = [] # array clear
         mission_count = 0
         with open(file_name) as f:
             for i, line in enumerate(f):
@@ -454,17 +455,19 @@ class Drone(MavlinkMessage):
                     #store in waypoints
                     if(ln_command != 22):
                         if(ln_seq != 0):   #i.e not home location
-                            self._waypoints[mission_count] = {
+                            self.__wp[mission_count] = {
                                 'lat':ln_x,
                                 'lng':ln_y,
                                 'alt':ln_z,
                                 'command':ln_command
                             }
+                            self._waypoints.append(self.__wp[mission_count])
                         else:
-                            self._waypoints[mission_count] = {
+                            self.__wp[mission_count] = {
                                                     'lat':ln_x,
                                                     'lng':ln_y
                                                     }
+                            self._waypoints.append(self.__wp[mission_count])
                         mission_count += 1
                     p = mavutil.mavlink.MAVLink_mission_item_message(0, 0, ln_seq, ln_frame,
                                                                     ln_command,
@@ -497,7 +500,9 @@ class Drone(MavlinkMessage):
         Returns:
             [dict]: a dictionary with all the waypoint that drone will fly
         """        
-        return self._waypoints
+        waypoints = {}
+        waypoints['waypoints'] = self._waypoints
+        return waypoints
 
     @property
     def is_armable(self):
