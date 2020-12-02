@@ -463,6 +463,8 @@ class Drone(MavlinkMessage):
                             }
                             self._waypoints.append(self.__wp[mission_count])
                         else:
+                            self._home.lat = ln_x
+                            self._home.lon = ln_y
                             self.__wp[mission_count] = {
                                                     'lat':ln_x,
                                                     'lng':ln_y
